@@ -1,0 +1,6 @@
+*.csr
+*.key
+*.pkcs1
+*.pem
+*.srl
+v3_usr.cnf
