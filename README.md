@@ -1,5 +1,12 @@
-# generate-gizmosql-token
-A utility for generating Bearer Authentication Tokens (Javascript Web Tokens - JWTs) for testing [GizmoSQL](https://github.com/gizmodata/gizmosql) token authentication.
+# Generate [GizmoSQL](https://gizmodata.com/gizmosql) (JWT) Token - by [GizmoData](https://gizmodata.com)™
+
+[<img src="https://img.shields.io/badge/GitHub-gizmodata%2Fgenerate--gizmosql--token-blue.svg?logo=Github">](https://github.com/gizmodata/generate-gizmosql-token)
+[![generate-gizmosql-token-ci](https://github.com/gizmodata/generate-gizmosql-token/actions/workflows/ci.yml/badge.svg)](https://github.com/gizmodata/generate-gizmosql-token/actions/workflows/ci.yml)
+[![Supported Python Versions](https://img.shields.io/pypi/pyversions/generate-gizmosql-token)](https://pypi.org/project/generate-gizmosql-token/)
+[![PyPI version](https://badge.fury.io/py/generate-gizmosql-token.svg)](https://badge.fury.io/py/generate-gizmosql-token)
+[![PyPI Downloads](https://img.shields.io/pypi/dm/generate-gizmosql-token.svg)](https://pypi.org/project/generate-gizmosql-token/)
+
+A utility for generating Bearer Authentication Tokens (Javascript Web Tokens - JWTs) for testing [GizmoSQL](https://github.com/gizmodata/gizmosql) (JWT) token authentication.
 
 # Setup (to run locally)
 
