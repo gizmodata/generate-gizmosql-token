@@ -14,7 +14,7 @@ include = ["*"]  # package names should match these glob patterns (["*"] by defa
 
 [project]
 name = "generate-gizmosql-token"
-version = "0.0.3"
+version = "0.0.4"
 description = "A package which generates a GizmoSQL token (JWT) for auth testing"
 readme = "README.md"
 authors = [{ name = "Philip Moore", email = "philip@gizmodata.com" }]
@@ -47,7 +47,7 @@ Homepage = "https://github.com/gizmodata/generate-gizmosql-token"
 generate-gizmosql-token = "generate_gizmosql_token.main:click_generate_gizmosql_token"
 
 [tool.bumpver]
-current_version = "0.0.3"
+current_version = "0.0.4"
 version_pattern = "MAJOR.MINOR.PATCH[PYTAGNUM]"
 commit_message = "bump version {old_version} -> {new_version}"
 commit = true
