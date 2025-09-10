@@ -14,7 +14,7 @@ include = ["*"]  # package names should match these glob patterns (["*"] by defa
 
 [project]
 name = "generate-gizmosql-token"
-version = "0.0.1"
+version = "0.0.0"
 description = "A package which generates a GizmoSQL token (JWT) for auth testing"
 readme = "README.md"
 authors = [{ name = "Philip Moore", email = "philip@gizmodata.com" }]
