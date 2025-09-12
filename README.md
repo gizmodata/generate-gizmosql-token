@@ -59,7 +59,7 @@ generate-gizmosql-token \
   --subject "philip@gizmodata.com" \
   --role "admin" \
   --token-lifetime-seconds 86400 \
-  --output-file-format "output/gizmosql_token_{issuer}_{audience}_{subject}.jwt" \
+  --output-file-format "output/gizmosql_token_{issuer}_{audience}_{subject}_{role}.jwt" \
   --private-key-file keys/private_key.pem
 ```
 
