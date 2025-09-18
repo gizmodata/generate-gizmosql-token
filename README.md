@@ -86,9 +86,9 @@ gizmosql_server                                         \
 ```
 
 #### JDBC
-You can use the generated token with GizmoSQL via JDBC by appending the token to the JDBC connection string as follows:
+You can use the generated token with GizmoSQL via JDBC by using "token" as the username, and putting the JWT in the password value:
 ```text
-jdbc:arrow-flight-sql://hostname:port?useEncryption=true&disableCertificateVerification=true&token=<YOUR_GENERATED_TOKEN>
+jdbc:arrow-flight-sql://hostname:port?useEncryption=true&user=token&password=JWT_TOKEN_HERE&disableCertificateVerification=true
 ```
 
 #### ADBC
@@ -99,10 +99,10 @@ import os
 from adbc_driver_flightsql import dbapi as gizmosql, DatabaseOptions
 
 with gizmosql.connect(uri="grpc+tls://localhost:31337",
-                      db_kwargs={
-                          DatabaseOptions.AUTHORIZATION_HEADER.value: f"Bearer {os.getenv("GIZMOSQL_TOKEN", "BAD TOKEN!")}",
-                          DatabaseOptions.TLS_SKIP_VERIFY.value: "true",
-                      },
+                      db_kwargs={"username": "token",
+                                 "password": os.getenv("GIZMOSQL_TOKEN", "BAD TOKEN!"),
+                                 DatabaseOptions.TLS_SKIP_VERIFY.value: "true",
+                                 },
                       autocommit=True
                       ) as conn:
     with conn.cursor() as cur:
