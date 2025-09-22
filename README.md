@@ -22,7 +22,7 @@ python3 -m venv .venv
 # Upgrade pip
 pip install --upgrade pip
 
-# Install the package (in editable mode)
+# Install the package
 pip install generate-gizmosql-token
 ```
 
@@ -62,6 +62,9 @@ generate-gizmosql-token \
   --output-file-format "output/gizmosql_token_{issuer}_{audience}_{subject}_{role}.jwt" \
   --private-key-file keys/private_key.pem
 ```
+
+> [!TIP]
+> If you use: `--role "readonly"` - you can generate a token that has read-only privileges in GizmoSQL (for the DuckDB backend only)
 
 ### Using the generated token with [GizmoSQL](https://github.com/gizmodata/gizmosql)
 
