@@ -82,7 +82,7 @@ gizmosql_server                                         \
    --tls tls/cert0.pem tls/cert0.key                    \
    --token-allowed-issuer "GizmoData LLC"               \
    --token-allowed-audience "GizmoSQL Server"           \
-   --token-signature-verify-cert-filename tls/jwt.pem   \
+   --token-signature-verify-cert-path tls/jwt.pem   \
    --log-format json                                    \
    --access-log off
    --log-level info
