@@ -84,7 +84,7 @@ gizmosql_server                                         \
    --token-allowed-audience "GizmoSQL Server"           \
    --token-signature-verify-cert-path tls/jwt.pem       \
    --log-format json                                    \
-   --access-log off
+   --access-log off                                     \
    --log-level info
 ```
 
