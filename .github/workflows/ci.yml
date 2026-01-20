@@ -3,16 +3,15 @@ name: generate-gizmosql-token-ci
 on:
   push:
   workflow_dispatch:
-  release:
-    types:
-      - published
 
 jobs:
   build-n-publish:
     name: Build and publish Python 🐍 distributions 📦 to PyPI
     runs-on: ubuntu-latest
     permissions:
-      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing to PyPi
+      id-token: write  # IMPORTANT: this permission is mandatory for trusted publishing to PyPi and attestations
+      attestations: write  # Required for artifact attestations
+      contents: read  # Required for checkout
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -38,6 +37,12 @@ jobs:
           --outdir dist/
           .
 
+      - name: Generate artifact attestation for sdist and wheel
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: dist/*
+
       - name: Publish distribution 📦 to PyPI
-        if: startsWith(github.ref, 'refs/tags')
+        if: startsWith(github.ref, 'refs/tags/v')
         uses: pypa/gh-action-pypi-publish@release/v1
