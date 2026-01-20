@@ -38,11 +38,11 @@ jobs:
           .
 
       - name: Generate artifact attestation for sdist and wheel
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v') && github.event.base_ref == 'refs/heads/main'
         uses: actions/attest-build-provenance@v2
         with:
           subject-path: dist/*
 
       - name: Publish distribution 📦 to PyPI
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v') && github.event.base_ref == 'refs/heads/main'
         uses: pypa/gh-action-pypi-publish@release/v1
