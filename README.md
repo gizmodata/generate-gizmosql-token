@@ -69,6 +69,9 @@ generate-gizmosql-token \
 ### Catalog-Level Access Control
 You can specify fine-grained catalog-level access controls using the `--catalog-access` option. This allows you to grant different access levels (none, read, write) to specific catalogs.
 
+> [!IMPORTANT]
+> Catalog-level access control requires GizmoSQL server version >= v1.15.0
+
 ```shell
 generate-gizmosql-token \
   --issuer "GizmoData LLC" \
