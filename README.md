@@ -66,6 +66,47 @@ generate-gizmosql-token \
 > [!TIP]
 > If you use: `--role "readonly"` - you can generate a token that has read-only privileges in GizmoSQL (for the DuckDB backend only)
 
+### Catalog-Level Access Control
+You can specify fine-grained catalog-level access controls using the `--catalog-access` option. This allows you to grant different access levels (none, read, write) to specific catalogs.
+
+```shell
+generate-gizmosql-token \
+  --issuer "GizmoData LLC" \
+  --audience "GizmoSQL Server" \
+  --subject "philip@gizmodata.com" \
+  --role "user" \
+  --catalog-access '[{"catalog": "production", "access": "read"}, {"catalog": "staging", "access": "write"}]' \
+  --token-lifetime-seconds 86400 \
+  --output-file-format "output/gizmosql_token_{issuer}_{audience}_{subject}_{role}.jwt" \
+  --private-key-file keys/private_key.pem
+```
+
+**Access Levels:**
+- `none` - No access to the catalog
+- `read` - Read-only access (SELECT queries only)
+- `write` - Full access (SELECT, INSERT, UPDATE, DELETE, DDL)
+
+**Rules:**
+- Rules are evaluated in order; **first match wins**
+- Use `"catalog": "*"` as a wildcard to match all catalogs
+- If no `--catalog-access` is specified, full access is granted to all catalogs (backward compatible)
+
+**Example configurations:**
+
+```shell
+# Read-only access to everything
+--catalog-access '[{"catalog": "*", "access": "read"}]'
+
+# Write access to staging, read-only to everything else
+--catalog-access '[{"catalog": "staging", "access": "write"}, {"catalog": "*", "access": "read"}]'
+
+# Access only to specific catalogs, deny all others
+--catalog-access '[{"catalog": "allowed_db", "access": "write"}, {"catalog": "*", "access": "none"}]'
+```
+
+> [!NOTE]
+> The `_gizmosql_instr` instrumentation database has special protection: only admin users can read it, and no one can write to it via client connections (it's system-managed). Token-based catalog_access rules do not override this protection
+
 ### Using the generated token with [GizmoSQL](https://github.com/gizmodata/gizmosql)
 
 #### Server setup

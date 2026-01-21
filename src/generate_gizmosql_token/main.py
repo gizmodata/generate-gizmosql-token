@@ -1,5 +1,7 @@
 import datetime
+import json
 import uuid
+from typing import Optional, List, Dict
 
 import click
 import jwt
@@ -12,6 +14,7 @@ def generate_gizmosql_token(issuer: str,
                             subject: str,
                             role: str,
                             token_lifetime_seconds: int,
+                            catalog_access: Optional[List[Dict[str, str]]] = None,
                             algorithm: str = "RS256"):
     try:
         jti = str(uuid.uuid4())
@@ -33,6 +36,10 @@ def generate_gizmosql_token(issuer: str,
             "nbf": current_time,  # Not before
             "role": role,  # Custom role claim
         })
+
+        # Add catalog_access if provided
+        if catalog_access:
+            payload["catalog_access"] = catalog_access
 
         # Generate the JWT
         token = jwt.encode(payload, private_key, algorithm=algorithm)
@@ -107,6 +114,15 @@ def generate_gizmosql_token(issuer: str,
     required=True,
     help="The RSA Private Key file file path (must be in PEM format).",
 )
+@click.option(
+    "--catalog-access",
+    type=str,
+    default=None,
+    help='JSON array of catalog access rules. Example: '
+         '\'[{"catalog":"accounting","access":"write"},{"catalog":"*","access":"read"}]\'. '
+         'Each rule must have "catalog" and "access" fields. '
+         'Use "*" as wildcard for catalog. Valid access values: "write", "read", "none".',
+)
 def click_generate_gizmosql_token(issuer: str,
                                   audience: str,
                                   subject: str,
@@ -114,5 +130,33 @@ def click_generate_gizmosql_token(issuer: str,
                                   token_lifetime_seconds: int,
                                   output_file_format: str,
                                   private_key_file: str,
+                                  catalog_access: Optional[str],
                                   ):
-    generate_gizmosql_token(**locals())
+    # Parse catalog_access JSON if provided
+    parsed_catalog_access = None
+    if catalog_access:
+        try:
+            parsed_catalog_access = json.loads(catalog_access)
+            # Validate structure
+            if not isinstance(parsed_catalog_access, list):
+                raise click.BadParameter("catalog_access must be a JSON array")
+            for rule in parsed_catalog_access:
+                if not isinstance(rule, dict):
+                    raise click.BadParameter("Each catalog_access rule must be an object")
+                if "catalog" not in rule or "access" not in rule:
+                    raise click.BadParameter("Each rule must have 'catalog' and 'access' fields")
+                if rule["access"] not in ("write", "read", "none"):
+                    raise click.BadParameter(f"Invalid access value: {rule['access']}. Must be 'write', 'read', or 'none'")
+        except json.JSONDecodeError as e:
+            raise click.BadParameter(f"Invalid JSON for catalog_access: {e}")
+
+    generate_gizmosql_token(
+        issuer=issuer,
+        output_file_format=output_file_format,
+        private_key_file=private_key_file,
+        audience=audience,
+        subject=subject,
+        role=role,
+        token_lifetime_seconds=token_lifetime_seconds,
+        catalog_access=parsed_catalog_access,
+    )
