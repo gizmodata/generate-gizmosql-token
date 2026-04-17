@@ -4,7 +4,7 @@
 [![generate-gizmosql-token-ci](https://github.com/gizmodata/generate-gizmosql-token/actions/workflows/ci.yml/badge.svg)](https://github.com/gizmodata/generate-gizmosql-token/actions/workflows/ci.yml)
 [![Supported Python Versions](https://img.shields.io/pypi/pyversions/generate-gizmosql-token)](https://pypi.org/project/generate-gizmosql-token/)
 [![PyPI version](https://badge.fury.io/py/generate-gizmosql-token.svg)](https://badge.fury.io/py/generate-gizmosql-token)
-[![PyPI Downloads](https://img.shields.io/pypi/dm/generate-gizmosql-token.svg)](https://pypi.org/project/generate-gizmosql-token/)
+[![PyPI Downloads](https://img.shields.io/pepy/dt/generate-gizmosql-token.svg)](https://pypi.org/project/generate-gizmosql-token/)
 
 A utility for generating Bearer Authentication Tokens (Javascript Web Tokens - JWTs) for testing [GizmoSQL](https://github.com/gizmodata/gizmosql) (JWT) token authentication.
 
@@ -80,7 +80,7 @@ generate-gizmosql-token \
   --audience "GizmoSQL Server" \
   --subject "philip@gizmodata.com" \
   --role "user" \
-  --catalog-access '[{"catalog": "production", "access": "read"}, {"catalog": "staging", "access": "write"}]' \
+  --catalog-access '[{"catalog": "memory", "access": "write"}, {"catalog": "my_ducklake", "access": "none"}]' \
   --token-lifetime-seconds 86400 \
   --output-file-format "output/gizmosql_token_{issuer}_{audience}_{subject}_{role}.jwt" \
   --private-key-file keys/private_key.pem
