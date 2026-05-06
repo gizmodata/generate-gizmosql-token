@@ -61,6 +61,7 @@ generate-gizmosql-token = "generate_gizmosql_token.main:click_generate_gizmosql_
 current_version = "1.0.0"
 version_pattern = "MAJOR.MINOR.PATCH[PYTAGNUM]"
 commit_message = "bump version {old_version} -> {new_version}"
+tag_message = "v{new_version}"
 commit = true
 tag = true
 

@@ -88,6 +88,11 @@ jobs:
       - name: Publish distribution 📦 to PyPI (with attestations)
         if: startsWith(github.ref, 'refs/tags/')
         uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          # Re-pushing an existing tag (or moving from a bare tag like
+          # 1.0.0 to v1.0.0) shouldn't fail the run just because PyPI
+          # already has the version.
+          skip-existing: true
         # attestations are enabled by default for Trusted Publishing
 
       - name: Extract changelog section for this tag
