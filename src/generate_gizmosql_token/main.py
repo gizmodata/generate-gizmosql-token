@@ -29,7 +29,7 @@ def generate_gizmosql_token(issuer: str,
             private_key = key_file.read()
 
         # Add standard claims to the payload
-        current_time = datetime.datetime.now(tz=datetime.UTC)
+        current_time = datetime.datetime.now(tz=datetime.timezone.utc)
         payload.update({
             "iat": current_time,  # Issued at
             "exp": current_time + datetime.timedelta(seconds=token_lifetime_seconds),  # Expiration
