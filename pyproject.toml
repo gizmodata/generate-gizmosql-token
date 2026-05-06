@@ -37,7 +37,18 @@ requires-python = ">=3.10"
 dev = [
     "bumpver",
     "pip-tools",
-    "pytest"
+    "pytest>=8.0",
+]
+integration = [
+    "docker",
+    "adbc-driver-gizmosql",
+    "pyarrow",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: tests that require Docker and a running GizmoSQL container (deselect with '-m \"not integration\"')",
 ]
 
 [project.urls]
