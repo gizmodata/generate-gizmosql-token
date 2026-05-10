@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## v1.0.1 (2026-05-10)
+
+### Changed
+- Switched the integration-test fixture from Docker (`docker-py` +
+  `gizmodata/gizmosql:latest`) to the
+  [`gizmosql`](https://pypi.org/project/gizmosql/) PyPI package's
+  managed subprocess. The fixture now mints a session-scoped self-signed
+  TLS cert via `cryptography` and passes it to the server via
+  `--tls <cert> <key>`, preserving the `grpc+tls://` connection
+  contract used by the integration tests. The JWT signature
+  verification cert is registered via `TOKEN_SIGNATURE_VERIFY_CERT_PATH`
+  pointing directly at the on-disk public key (no volume mount needed
+  now that the server is on the host). Local development no longer
+  requires Docker.
+- Replaced `docker` with `gizmosql>=1.26.0,<2` in the `[integration]`
+  extra. The CI integration-tests job no longer pulls
+  `gizmodata/gizmosql:latest`.
+
 ## v1.0.0 (2026-05-06)
 
 ### Added

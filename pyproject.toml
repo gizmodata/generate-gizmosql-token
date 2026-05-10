@@ -14,7 +14,7 @@ include = ["*"]  # package names should match these glob patterns (["*"] by defa
 
 [project]
 name = "generate-gizmosql-token"
-version = "1.0.0"
+version = "1.0.1"
 description = "A package which generates a GizmoSQL token (JWT) for auth testing"
 readme = "README.md"
 authors = [{ name = "Philip Moore", email = "philip@gizmodata.com" }]
@@ -40,7 +40,7 @@ dev = [
     "pytest>=8.0",
 ]
 integration = [
-    "docker",
+    "gizmosql>=1.26.0,<2",
     "adbc-driver-gizmosql",
     "pyarrow",
 ]
@@ -48,7 +48,7 @@ integration = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 markers = [
-    "integration: tests that require Docker and a running GizmoSQL container (deselect with '-m \"not integration\"')",
+    "integration: end-to-end tests that spin up a GizmoSQL server via the gizmosql PyPI package (deselect with '-m \"not integration\"')",
 ]
 
 [project.urls]
@@ -58,7 +58,7 @@ Homepage = "https://github.com/gizmodata/generate-gizmosql-token"
 generate-gizmosql-token = "generate_gizmosql_token.main:click_generate_gizmosql_token"
 
 [tool.bumpver]
-current_version = "1.0.0"
+current_version = "1.0.1"
 version_pattern = "MAJOR.MINOR.PATCH[PYTAGNUM]"
 commit_message = "bump version {old_version} -> {new_version}"
 tag_message = "v{new_version}"
