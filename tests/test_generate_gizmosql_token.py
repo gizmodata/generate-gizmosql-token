@@ -104,6 +104,30 @@ def test_catalog_access_included_in_token(rsa_keypair, output_dir):
     assert claims["catalog_access"] == rules
 
 
+def test_catalog_access_wildcard_patterns_pass_through(rsa_keypair, output_dir):
+    # AWS IAM-style glob patterns are matched by the GizmoSQL server, not this
+    # generator. They must be written into the claim verbatim (not validated or
+    # rewritten here).
+    rules = [
+        {"catalog": "prod_*", "access": "write"},
+        {"catalog": "analytics_?", "access": "read"},
+        {"catalog": "*", "access": "none"},
+    ]
+    token = generate_gizmosql_token(
+        issuer=ISSUER,
+        audience=AUDIENCE,
+        subject=SUBJECT,
+        role="user",
+        token_lifetime_seconds=60,
+        output_file_format=str(output_dir / "t_{subject}.jwt"),
+        private_key_file=str(rsa_keypair["private"]),
+        catalog_access=rules,
+    )
+
+    claims = _decode(token, rsa_keypair["public"])
+    assert claims["catalog_access"] == rules
+
+
 def test_token_expires_in_the_past_is_rejected(rsa_keypair, output_dir):
     token = generate_gizmosql_token(
         issuer=ISSUER,

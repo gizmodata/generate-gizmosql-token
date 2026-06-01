@@ -93,8 +93,15 @@ generate-gizmosql-token \
 
 **Rules:**
 - Rules are evaluated in order; **first match wins**
-- Use `"catalog": "*"` as a wildcard to match all catalogs
+- The `catalog` field is matched using **AWS IAM-style glob patterns** (GizmoSQL Enterprise v1.27.0+):
+  - `*` matches any sequence of characters (including none)
+  - `?` matches exactly one character
+  - A pattern with no wildcards matches the catalog name **exactly** (case-sensitive)
+- So `"catalog": "*"` matches all catalogs, and `"catalog": "prod_*"` matches `prod_sales`, `prod_finance`, etc.
 - If no `--catalog-access` is specified, full access is granted to all catalogs (backward compatible)
+
+> [!NOTE]
+> Wildcard matching is performed by the **GizmoSQL server**, not this generator. Patterns are written verbatim into the token's `catalog_access` claim, so this tool works with any pattern your server version supports.
 
 **Example configurations:**
 
@@ -107,6 +114,9 @@ generate-gizmosql-token \
 
 # Access only to specific catalogs, deny all others
 --catalog-access '[{"catalog": "allowed_db", "access": "write"}, {"catalog": "*", "access": "none"}]'
+
+# Wildcard: write to all prod_* catalogs, read all analytics_* catalogs, deny the rest
+--catalog-access '[{"catalog": "prod_*", "access": "write"}, {"catalog": "analytics_*", "access": "read"}, {"catalog": "*", "access": "none"}]'
 ```
 
 > [!NOTE]
