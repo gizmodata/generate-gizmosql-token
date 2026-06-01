@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## Unreleased
+
+### Changed
+- Documented AWS IAM-style wildcard support for the `--catalog-access`
+  `catalog` field (`*` matches any sequence, `?` matches one character),
+  matching the GizmoSQL Enterprise server's pattern matching. No code change
+  is required — patterns were already written into the `catalog_access` claim
+  verbatim; this clarifies the `--catalog-access` help text and README and
+  adds a regression test asserting wildcard patterns pass through unmodified.
+
 ## v1.0.1 (2026-05-10)
 
 ### Changed

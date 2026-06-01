@@ -121,7 +121,10 @@ def generate_gizmosql_token(issuer: str,
     help='JSON array of catalog access rules. Example: '
          '\'[{"catalog":"accounting","access":"write"},{"catalog":"*","access":"read"}]\'. '
          'Each rule must have "catalog" and "access" fields. '
-         'Use "*" as wildcard for catalog. Valid access values: "write", "read", "none".',
+         'The "catalog" field supports AWS IAM-style glob patterns (matched by the '
+         'GizmoSQL server): "*" matches any sequence of characters and "?" matches a '
+         'single character, so "*" matches all catalogs and "prod_*" matches prod_sales, '
+         'prod_finance, etc. Valid access values: "write", "read", "none".',
 )
 def click_generate_gizmosql_token(issuer: str,
                                   audience: str,
