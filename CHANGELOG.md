@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## v1.1.0 (2026-06-02)
+
 ### Changed
 - Documented AWS IAM-style wildcard support for the `--catalog-access`
   `catalog` field (`*` matches any sequence, `?` matches one character),
