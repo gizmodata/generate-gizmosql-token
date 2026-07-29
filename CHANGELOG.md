@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+### Changed
+- Bumped the `adbc-driver-gizmosql` pin in the `[integration]` extra to
+  `>=2.0.0` (the Go-backed rewrite, API byte-compatible with 1.x).
+- Bumped remaining dependency pins to current stable versions:
+  `click==8.4.*`, `pyjwt==2.13.*`, `cryptography==49.0.*`,
+  `python-dotenv==1.2.*`, `pytest>=9.0`, and the `gizmosql` integration
+  floor to `>=1.35.1` (keeping the deliberate `<2` cap).
+- Bumped GitHub Actions in CI: `actions/checkout` v4 → v7,
+  `actions/setup-python` v5 → v7, `softprops/action-gh-release` v2 → v3.
+
 ## v1.1.0 (2026-06-02)
 
 ### Changed
