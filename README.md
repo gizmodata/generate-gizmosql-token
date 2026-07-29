@@ -8,6 +8,9 @@
 
 A utility for generating Bearer Authentication Tokens (Javascript Web Tokens - JWTs) for testing [GizmoSQL](https://github.com/gizmodata/gizmosql) (JWT) token authentication.
 
+> [!NOTE]
+> As of v1.2.0, the integration test suite runs on [`adbc-driver-gizmosql`](https://pypi.org/project/adbc-driver-gizmosql/) 2.0 — powered by the new native Go [GizmoSQL ADBC driver](https://github.com/gizmodata/gizmosql-adbc). Same API as 1.x, with DDL/DML immediate execution, `RETURNING` support, `gizmosql://` URIs, and OAuth/SSO provided by the shared Go driver library used across all languages.
+
 # Setup (to run locally)
 
 ## Install Python package

@@ -8,7 +8,11 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Bumped the `adbc-driver-gizmosql` pin in the `[integration]` extra to
-  `>=2.0.0` (the Go-backed rewrite, API byte-compatible with 1.x).
+  `>=2.0.0` — powered by the new native Go
+  [GizmoSQL ADBC driver](https://github.com/gizmodata/gizmosql-adbc). Same
+  API as 1.x, with DDL/DML immediate execution, `RETURNING` support,
+  `gizmosql://` URIs, and OAuth/SSO provided by the shared Go driver
+  library used across all languages.
 - Bumped remaining dependency pins to current stable versions:
   `click==8.4.*`, `pyjwt==2.13.*`, `cryptography==49.0.*`,
   `python-dotenv==1.2.*`, `pytest>=9.0`, and the `gizmosql` integration
