@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## v1.2.0 (2026-07-29)
+
 ### Changed
 - Bumped the `adbc-driver-gizmosql` pin in the `[integration]` extra to
   `>=2.0.0` (the Go-backed rewrite, API byte-compatible with 1.x).
