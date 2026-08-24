@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## v1.2.1 (2026-08-24)
+
+### Changed
+- Require `adbc-driver-gizmosql` >= 2.0.8. v2.0.8 fixes geometry-aware bulk ingest against GizmoSQL >= 1.37.0 (which now creates `GEOMETRY` columns server-side); earlier driver builds fail there with `No function matches 'st_geomfromwkb(GEOMETRY)'`.
+
 ## v1.2.0 (2026-07-29)
 
 ### Changed
